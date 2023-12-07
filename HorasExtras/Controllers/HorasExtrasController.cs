@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using ControleDeHorasExtras.Application;
 using ControleDeHorasExtras.Models;
-using ControleDeHorasExtras.Application;
 using ControleDeHorasExtras.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeHorasExtras.Controllers
 {
@@ -15,11 +15,8 @@ namespace ControleDeHorasExtras.Controllers
         private readonly HorasExtrasDb _context;
         private readonly HorasExtrasApplication _appHorasExtras;
 
-        public HorasExtrasController(HorasExtrasDb context)
-        {
-            _context = context;
-            _appHorasExtras = new HorasExtrasApplication(context);
-        }
+        public HorasExtrasController(HorasExtrasDb context) => (_context, _appHorasExtras) =
+            (context, new HorasExtrasApplication(context));
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
@@ -30,38 +27,46 @@ namespace ControleDeHorasExtras.Controllers
 
             return CreatedAtAction(nameof(GetHoraExtra), new { id = horasExtras.Id }, horasExtras);
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HoraExtra>>> GetHorasExtras()
         {
             return await _context.HorasExtras.ToListAsync();
         }
-        
-        [HttpGet("byMonth/{month}")]
+
+        [HttpGet("by-month/{month}")]
         public async Task<ActionResult<HorasExtrasMonthResponse>> GetHorasExtrasMonth(int month)
         {
-            var horasExtrasMonth = await _context.HorasExtras.Where(h => h.HorarioInicial.Month == month).ToListAsync();
+            var horasExtrasMonth = await _context.HorasExtras
+                .Where(h => h.HorarioInicial.Month == month)
+                .OrderBy(h => h.HorarioInicial)
+                .ToListAsync();
+
             return new HorasExtrasMonthResponse() { DiasHorasExtras = horasExtrasMonth.Count, HorasExtras = horasExtrasMonth };
         }
-        
+
         [HttpGet("{id}")]
         public async Task<ActionResult<HoraExtra>> GetHoraExtra(int id)
         {
             var horaExtra = await _context.HorasExtras.FindAsync(id);
 
             if (horaExtra == null)
-            {
                 return NotFound();
-            }
 
             return horaExtra;
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("calculated")]
-        public async Task<ActionResult<HorasExtrasResponse>> GetCalculatedHorasExtras([FromQuery] decimal salario, [FromQuery] int month)
+        public async Task<ActionResult<HorasExtrasResponse>> GetCalculateHorasExtras
+            (
+                [FromQuery] decimal salario,
+                [FromQuery] int month,
+                [FromQuery] int? initialDay,
+                [FromQuery] int? finalDay
+            )
         {
-            return await _appHorasExtras.Calculated(salario, month);
+            return await _appHorasExtras.Calculate(salario, month, initialDay, finalDay);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -69,9 +74,7 @@ namespace ControleDeHorasExtras.Controllers
         public async Task<IActionResult> PutHoraExtra(int id, HoraExtra horaExtra)
         {
             if (id != horaExtra.Id)
-            {
                 return BadRequest();
-            }
 
             _context.Entry(horaExtra).State = EntityState.Modified;
 
@@ -82,13 +85,9 @@ namespace ControleDeHorasExtras.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!HoraExtraExists(id))
-                {
                     return NotFound();
-                }
                 else
-                {
                     throw;
-                }
             }
 
             return NoContent();
@@ -99,10 +98,9 @@ namespace ControleDeHorasExtras.Controllers
         public async Task<IActionResult> DeleteHoraExtra(int id)
         {
             var horaExtra = await _context.HorasExtras.FindAsync(id);
+
             if (horaExtra == null)
-            {
                 return NotFound();
-            }
 
             _context.HorasExtras.Remove(horaExtra);
             await _context.SaveChangesAsync();
