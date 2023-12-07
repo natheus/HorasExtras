@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDeHorasExtras", "HorasExtras\ControleDeHorasExtras.csproj", "{63A28BA6-7FA3-4D12-8D56-5A402B0E48AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDeHorasExtras.Dominio", "src\ControleDeHorasExtras.Dominio\ControleDeHorasExtras.Dominio.csproj", "{63A28BA6-7FA3-4D12-8D56-5A402B0E48AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDeHorasExtras.Testes", "ControleDeHorasExtras.Testes\ControleDeHorasExtras.Testes.csproj", "{E0BCAB1A-B152-4A63-B63A-4815B239017C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleDeHorasExtras.DominioTest", "test\ControleDeHorasExtras.DominioTest\ControleDeHorasExtras.DominioTest.csproj", "{E0BCAB1A-B152-4A63-B63A-4815B239017C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
