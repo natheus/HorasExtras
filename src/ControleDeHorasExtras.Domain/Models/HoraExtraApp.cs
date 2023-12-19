@@ -1,11 +1,25 @@
-﻿using ControleDeHorasExtras.Dominio.Domain.Models;
-using ControleDeHorasExtras.Dominio.Domain.Models.ViewModels.Response;
-using Microsoft.EntityFrameworkCore;
+using ControleDeHorasExtras.Domain.Interfaces;
+using ControleDeHorasExtras.Domain.Models.ViewModels.Response;
 
-namespace ControleDeHorasExtras.Application
+namespace ControleDeHorasExtras.Domain.Models
 {
-    public class HorasExtrasApplication(HorasExtrasDb context)
+    public class HoraExtraApp(IHoraExtraRepository horaExtraRepository)
     {
+        private readonly IHoraExtraRepository _horaExtraRepository = horaExtraRepository;
+
+        public void Create(int id, DateTime horarioInicial, DateTime horarioFinal, decimal porcentagem)
+        {
+            var contato = _horaExtraRepository.GetById(id);
+
+            if (contato == null)
+            {
+                contato = new HoraExtra(horarioInicial, horarioFinal, porcentagem);
+                _horaExtraRepository.Save(contato);
+            }
+            else
+                contato.Update(horarioInicial, horarioFinal, porcentagem);
+        }
+
         public async Task<HorasExtrasResponse> Calculate(decimal salario, int month, int? initialDay, int? finalDay)
         {
             ValidarParametros(initialDay, finalDay);
@@ -26,18 +40,12 @@ namespace ControleDeHorasExtras.Application
         private static void ValidarParametros(int? initialDay, int? finalDay)
         {
             if (initialDay.HasValue && finalDay.HasValue && initialDay > finalDay)
-                throw new ArgumentException("O dia inicial não pode ser maior que o dia final.");
+                throw new ArgumentException("O dia inicial n�o pode ser maior que o dia final.");
         }
 
         private async Task<List<HoraExtra>> ObterHorasExtras(int month, int? initialDay, int? finalDay)
         {
-            var currentDate = DateTime.Now;
-            return await context.HorasExtras
-                .Where(h => h.HorarioInicial.Year == currentDate.Year &&
-                            h.HorarioInicial.Month == month &&
-                            (!initialDay.HasValue || h.HorarioInicial.Day >= initialDay) &&
-                            (!finalDay.HasValue || h.HorarioFinal.Day <= finalDay)
-                ).ToListAsync();
+            return await _horaExtraRepository.ObterHorasExtras(month, initialDay, finalDay);
         }
 
         private static int CalcularTotalHoras(List<HoraExtra> horasExtras)

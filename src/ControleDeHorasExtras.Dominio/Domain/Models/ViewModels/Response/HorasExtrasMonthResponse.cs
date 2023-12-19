@@ -1,6 +1,6 @@
-﻿using ControleDeHorasExtras.Models;
+﻿using ControleDeHorasExtras.Dominio.Domain.Models;
 
-namespace ControleDeHorasExtras.ViewModels
+namespace ControleDeHorasExtras.Dominio.Domain.Models.ViewModels.Response
 {
     public class HorasExtrasMonthResponse
     {

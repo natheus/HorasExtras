@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ControleDeHorasExtras.Dominio\ControleDeHorasExtras.Dominio.csproj" />
+    <ProjectReference Include="..\..\src\ControleDeHorasExtras.Domain\ControleDeHorasExtras.Domain.csproj" />
   </ItemGroup>
 
 </Project>

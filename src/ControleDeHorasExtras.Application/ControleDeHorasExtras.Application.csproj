@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>Library</OutputType>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ControleDeHorasExtras.Domain\ControleDeHorasExtras.Domain.csproj" />
+    <ProjectReference Include="..\ControleDeHorasExtras.Infra\ControleDeHorasExtras.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

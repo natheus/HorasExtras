@@ -1,4 +1,4 @@
-﻿using ControleDeHorasExtras.Models;
+﻿using ControleDeHorasExtras.Dominio.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class HorasExtrasDb : DbContext

@@ -1,6 +1,6 @@
-﻿namespace ControleDeHorasExtras.Models
+﻿namespace ControleDeHorasExtras.Dominio.Domain.Models
 {
-    public class HoraExtra
+    public class HoraExtra : BaseEntity
     {
         public HoraExtra(DateTime horarioInicial, DateTime horarioFinal, decimal porcentagem)
         {
@@ -15,7 +15,6 @@
             Porcentagem = porcentagem;
         }
 
-        public int Id { get; set; }
         public DateTime HorarioInicial { get; set; }
         public DateTime HorarioFinal { get; set; }
         public decimal Porcentagem { get; set; }

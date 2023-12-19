@@ -1,4 +1,4 @@
-﻿namespace ControleDeHorasExtras.ViewModels
+﻿namespace ControleDeHorasExtras.Dominio.Domain.Models.ViewModels.Response
 {
     public class HorasExtrasResponse
     {

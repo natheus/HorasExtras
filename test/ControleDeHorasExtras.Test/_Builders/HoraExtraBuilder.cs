@@ -1,4 +1,4 @@
-﻿using ControleDeHorasExtras.Models;
+﻿using ControleDeHorasExtras.Domain.Models;
 
 namespace HorasExtras.Api.Tests
 {

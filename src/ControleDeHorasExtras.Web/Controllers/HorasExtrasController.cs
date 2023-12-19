@@ -1,6 +1,6 @@
-﻿using ControleDeHorasExtras.Application;
-using ControleDeHorasExtras.Dominio.Domain.Models;
-using ControleDeHorasExtras.Dominio.Domain.Models.ViewModels.Response;
+﻿using ControleDeHorasExtras.Domain.Models;
+using ControleDeHorasExtras.Domain.Models.ViewModels.Response;
+using ControleDeHorasExtras.Infra.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +12,14 @@ namespace ControleDeHorasExtras.Controllers
     [ApiController]
     public class HorasExtrasController : ControllerBase
     {
-        private readonly HorasExtrasDb _context;
-        private readonly HorasExtrasApplication _appHorasExtras;
+        private readonly AppDbContext _context;
+        private readonly HoraExtraApp _horaExtraApp;
 
-        public HorasExtrasController(HorasExtrasDb context) => (_context, _appHorasExtras) =
-            (context, new HorasExtrasApplication(context));
+        public HorasExtrasController(AppDbContext context, HoraExtraApp horaExtraApp)
+        {
+            (_context, _horaExtraApp) =
+            (context, horaExtraApp);
+        }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
@@ -66,7 +69,7 @@ namespace ControleDeHorasExtras.Controllers
                 [FromQuery] int? finalDay
             )
         {
-            return await _appHorasExtras.Calculate(salario, month, initialDay, finalDay);
+            return await _horaExtraApp.Calculate(salario, month, initialDay, finalDay);
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

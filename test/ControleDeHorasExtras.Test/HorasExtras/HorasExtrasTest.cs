@@ -1,5 +1,5 @@
 using Bogus;
-using ControleDeHorasExtras.Models;
+using ControleDeHorasExtras.Domain.Models;
 using ExpectedObjects;
 using Xunit.Abstractions;
 
@@ -66,6 +66,7 @@ namespace HorasExtras.Api.Tests
         public void Dispose()
         {
             _output.WriteLine("Dispose sendo executado.");
+            GC.SuppressFinalize(this);
         }
     }
 }
