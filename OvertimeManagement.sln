@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OvertimeManagement.Test", "test\OvertimeManagement.Test\OvertimeManagement.Test.csproj", "{E0BCAB1A-B152-4A63-B63A-4815B239017C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OvertimeManagement.Domain", "src\OvertimeManagement.Domain\OvertimeManagement.Domain.csproj", "{867759FD-25CF-4E2F-8F8C-37A048F4BC8D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OvertimeManagement.Infra", "src\OvertimeManagement.Infra\OvertimeManagement.Infra.csproj", "{215894EF-EDF0-4EF3-9072-A000CF2F2F7C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OvertimeManagement.Web", "src\OvertimeManagement.Web\OvertimeManagement.Web.csproj", "{F99A252F-3AE3-49AE-98F4-5F2366E3CD4E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OvertimeManagement.Application", "src\OvertimeManagement.Application\OvertimeManagement.Application.csproj", "{B3254BB4-6AD7-486E-84C3-BDA6F839700F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0BCAB1A-B152-4A63-B63A-4815B239017C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0BCAB1A-B152-4A63-B63A-4815B239017C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0BCAB1A-B152-4A63-B63A-4815B239017C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0BCAB1A-B152-4A63-B63A-4815B239017C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{867759FD-25CF-4E2F-8F8C-37A048F4BC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{867759FD-25CF-4E2F-8F8C-37A048F4BC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{867759FD-25CF-4E2F-8F8C-37A048F4BC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{867759FD-25CF-4E2F-8F8C-37A048F4BC8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{215894EF-EDF0-4EF3-9072-A000CF2F2F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{215894EF-EDF0-4EF3-9072-A000CF2F2F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{215894EF-EDF0-4EF3-9072-A000CF2F2F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{215894EF-EDF0-4EF3-9072-A000CF2F2F7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F99A252F-3AE3-49AE-98F4-5F2366E3CD4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F99A252F-3AE3-49AE-98F4-5F2366E3CD4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F99A252F-3AE3-49AE-98F4-5F2366E3CD4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F99A252F-3AE3-49AE-98F4-5F2366E3CD4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3254BB4-6AD7-486E-84C3-BDA6F839700F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3254BB4-6AD7-486E-84C3-BDA6F839700F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3254BB4-6AD7-486E-84C3-BDA6F839700F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3254BB4-6AD7-486E-84C3-BDA6F839700F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0058084-EE7F-461F-9CF3-BDC968290133}
+	EndGlobalSection
+EndGlobal
