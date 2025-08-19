@@ -1,8 +1,9 @@
-﻿using OvertimeManagement.Domain.Models;
-using OvertimeManagement.Domain.Models.ViewModels.Response;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OvertimeManagement.Application.Interfaces;
+using OvertimeManagement.Domain.Models;
+using OvertimeManagement.Domain.Models.ViewModels.Response;
 using System.Net;
 
 namespace OvertimeManagement.Web.Controllers;
@@ -10,17 +11,14 @@ namespace OvertimeManagement.Web.Controllers;
 [Route("api/[controller]")]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [ApiController]
-public class OvertimeController(OvertimeApp overtime) : ControllerBase
+public class OvertimeController(IOvertimeApp overtimeApp) : ControllerBase
 {
-
-    private readonly OvertimeApp _overtimeApp = overtime;
-
     [HttpPost]
     public async Task<ActionResult<Overtime>> PostOvertime(Overtime overtime)
     {
         try
         {
-            await _overtimeApp.SaveAsync(overtime);
+            await overtimeApp.SaveAsync(overtime);
 
             return CreatedAtAction(
                 nameof(GetOvertimeByIdAsync),
@@ -40,8 +38,8 @@ public class OvertimeController(OvertimeApp overtime) : ControllerBase
     {
         try
         {
-            return Ok(await _overtimeApp.GetOvertimeByIdAsync(id));
-;        }
+            return Ok(await overtimeApp.GetOvertimeByIdAsync(id));
+        }
         catch (Exception ex)
         {
             return StatusCode((int)HttpStatusCode.InternalServerError,
@@ -54,7 +52,7 @@ public class OvertimeController(OvertimeApp overtime) : ControllerBase
     {
         try
         {
-            return Ok(await _overtimeApp.GetAllAsync());
+            return Ok(await overtimeApp.GetAllAsync());
         }
         catch (Exception ex)
         {
@@ -68,7 +66,7 @@ public class OvertimeController(OvertimeApp overtime) : ControllerBase
     {
         try
         {
-            return Ok(await _overtimeApp.GetOvertimeByMonthAsync(month));
+            return Ok(await overtimeApp.GetOvertimeByMonthAsync(month));
         }
         catch (Exception ex)
         {
@@ -88,7 +86,7 @@ public class OvertimeController(OvertimeApp overtime) : ControllerBase
     {
         try
         {
-            return await _overtimeApp.Calculate(salary, month, initialDay, finalDay);
+            return await overtimeApp.Calculate(salary, month, initialDay, finalDay);
         }
         catch (Exception ex)
         {
@@ -105,7 +103,7 @@ public class OvertimeController(OvertimeApp overtime) : ControllerBase
 
         try
         {
-            await _overtimeApp.PutOvertimeAsync(overtime);
+            await overtimeApp.PutOvertimeAsync(overtime);
 
             return Ok("Overtime updated successfully.");
         }
@@ -121,7 +119,7 @@ public class OvertimeController(OvertimeApp overtime) : ControllerBase
     {
         try
         {
-            await _overtimeApp.DeleteOvertimeAsync(id);
+            await overtimeApp.DeleteOvertimeAsync(id);
             return Ok("Overtime deleted successfully");
         }
         catch (Exception ex)

@@ -1,5 +1,5 @@
-﻿using OvertimeManagement.Domain.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using OvertimeManagement.Domain.Models;
 
 namespace OvertimeManagement.Infra.Context;
 

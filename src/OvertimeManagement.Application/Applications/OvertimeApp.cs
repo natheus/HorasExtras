@@ -1,9 +1,11 @@
+using OvertimeManagement.Application.Interfaces;
 using OvertimeManagement.Domain.Interfaces;
+using OvertimeManagement.Domain.Models;
 using OvertimeManagement.Domain.Models.ViewModels.Response;
 
-namespace OvertimeManagement.Domain.Models;
+namespace OvertimeManagement.Application.Applications;
 
-public class OvertimeApp(IOvertimeRepository overtimeRepository)
+public class OvertimeApp(IOvertimeRepository overtimeRepository) : IOvertimeApp
 {
     private readonly IOvertimeRepository _overtimeRepository = overtimeRepository;
 
@@ -58,7 +60,7 @@ public class OvertimeApp(IOvertimeRepository overtimeRepository)
     private static decimal CalculateEstimatedEarningsPerMonth(decimal salary, List<Overtime> overtimes)
     {
         return overtimes.Sum(o => CalculateWorkedHourValue(salary, 8, o.Percentage).estimatedEarnings *
-            (int)((o.EndTime - o.StartTime).TotalMinutes) / 60);
+            (int)(o.EndTime - o.StartTime).TotalMinutes / 60);
     }
 
     private static decimal ApplyDiscount(decimal estimatedEarningsPerMonth)
@@ -67,7 +69,7 @@ public class OvertimeApp(IOvertimeRepository overtimeRepository)
         return estimatedEarningsPerMonth * (companyExpense / 100);
     }
 
-    private static OvertimeResponse CreateResponse(int totalHours, int workedDays, decimal workedHourValue, 
+    private static OvertimeResponse CreateResponse(int totalHours, int workedDays, decimal workedHourValue,
         decimal estimatedEarningsPerHour, decimal estimatedEarningsPerMonth)
     {
         return new OvertimeResponse
@@ -129,7 +131,7 @@ public class OvertimeApp(IOvertimeRepository overtimeRepository)
 
     public async Task PutOvertimeAsync(Overtime overtime)
     {
-        _ = await _overtimeRepository.GetByIdAsync(overtime.Id) ?? 
+        _ = await _overtimeRepository.GetByIdAsync(overtime.Id) ??
             throw new KeyNotFoundException($"Overtime with ID {overtime.Id} not found.");
 
         await _overtimeRepository.UpdateAsync(overtime);

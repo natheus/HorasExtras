@@ -1,8 +1,8 @@
 using Bogus;
+using ExpectedObjects;
 using OvertimeManagement.Domain.Models;
 using OvertimeManagement.Test._Builders;
 using OvertimeManagement.Test._Util;
-using ExpectedObjects;
 using Xunit.Abstractions;
 
 namespace OvertimeManagement.Test.overTimes;

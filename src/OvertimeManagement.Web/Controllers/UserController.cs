@@ -61,16 +61,16 @@ namespace OvertimeManagement.Web.Controllers
             if (loginUser == null)
                 return Results.BadRequest("User not provided.");
 
-                if (!MiniValidator.TryValidate(loginUser, out var errors))
-                    return Results.ValidationProblem(errors);
+            if (!MiniValidator.TryValidate(loginUser, out var errors))
+                return Results.ValidationProblem(errors);
 
-                var result = await signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, true, true);
+            var result = await signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, true, true);
 
-                if (result.IsLockedOut)
-                    return Results.BadRequest("User is locked out.");
+            if (result.IsLockedOut)
+                return Results.BadRequest("User is locked out.");
 
-                if (!result.Succeeded)
-                    return Results.BadRequest("Invalid username or password.");
+            if (!result.Succeeded)
+                return Results.BadRequest("Invalid username or password.");
 
             var jwt = new JwtBuilder()
                         .WithUserManager(userManager)

@@ -1,7 +1,7 @@
-﻿using OvertimeManagement.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OvertimeManagement.Domain.Interfaces;
 using OvertimeManagement.Domain.Models;
 using OvertimeManagement.Infra.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace OvertimeManagement.Infra.Repositories;
 
