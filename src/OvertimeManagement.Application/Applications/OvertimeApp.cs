@@ -7,8 +7,6 @@ namespace OvertimeManagement.Application.Applications;
 
 public class OvertimeApp(IOvertimeRepository overtimeRepository) : IOvertimeApp
 {
-    private readonly IOvertimeRepository _overtimeRepository = overtimeRepository;
-
     public async Task<OvertimeResponse> Calculate(decimal salary, int month, int? initialDay, int? finalDay)
     {
         ValidateParameters(initialDay, finalDay);
@@ -34,7 +32,7 @@ public class OvertimeApp(IOvertimeRepository overtimeRepository) : IOvertimeApp
 
     private async Task<List<Overtime>> GetOvertimes(int month, int? initialDay, int? finalDay)
     {
-        return await _overtimeRepository.GetOvertimeAsync(month, initialDay, finalDay);
+        return await overtimeRepository.GetOvertimeAsync(month, initialDay, finalDay);
     }
 
     private static int CalculateTotalHours(List<Overtime> overtimes)
@@ -109,39 +107,39 @@ public class OvertimeApp(IOvertimeRepository overtimeRepository) : IOvertimeApp
 
     public async Task SaveAsync(Overtime overTimes)
     {
-        await _overtimeRepository.SaveAsync(overTimes);
+        await overtimeRepository.SaveAsync(overTimes);
     }
 
     public async Task<IEnumerable<Overtime>> GetAllAsync()
     {
-        return await _overtimeRepository.GetAllAsync();
+        return await overtimeRepository.GetAllAsync();
     }
 
     public async Task<OverTimeMonthResponse> GetOvertimeByMonthAsync(int month)
     {
-        var overtimeMonth = await _overtimeRepository.GetOvertimeByMonthAsync(month);
+        var overtimeMonth = await overtimeRepository.GetOvertimeByMonthAsync(month);
 
         return new OverTimeMonthResponse() { OvertimeDays = overtimeMonth.Count, Overtime = overtimeMonth };
     }
 
     public async Task<Overtime?> GetOvertimeByIdAsync(int id)
     {
-        return await _overtimeRepository.GetByIdAsync(id);
+        return await overtimeRepository.GetByIdAsync(id);
     }
 
     public async Task PutOvertimeAsync(Overtime overtime)
     {
-        _ = await _overtimeRepository.GetByIdAsync(overtime.Id) ??
+        _ = await overtimeRepository.GetByIdAsync(overtime.Id) ??
             throw new KeyNotFoundException($"Overtime with ID {overtime.Id} not found.");
 
-        await _overtimeRepository.UpdateAsync(overtime);
+        await overtimeRepository.UpdateAsync(overtime);
     }
 
     public async Task DeleteOvertimeAsync(int id)
     {
-        _ = await _overtimeRepository.GetByIdAsync(id) ??
+        _ = await overtimeRepository.GetByIdAsync(id) ??
             throw new KeyNotFoundException($"Overtime with ID {id} not found.");
 
-        await _overtimeRepository.RemoveAsync(id);
+        await overtimeRepository.RemoveAsync(id);
     }
 }
